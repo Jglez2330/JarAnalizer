@@ -1,4 +1,4 @@
-package Jar;
+package JarManage;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -8,8 +8,8 @@ import java.io.File;
 
 public class JarReader {
 	//Opens a jar file and enumerates its entries to get all elements
-	public static void main(String args[]) throws IOException {
-		JarFile jarFile = new JarFile(new File("C:\\Program Files\\Java\\jre1.8.0_121\\lib\\resources.jar")); //This is the "resources" jar
+	public static void main(String arg) throws IOException {
+		JarFile jarFile = new JarFile(new File(arg)); //This is the "resources" jar
 		Enumeration<JarEntry> e = jarFile.entries();
 		while (e.hasMoreElements()) {
 			process(e.nextElement());
@@ -22,6 +22,6 @@ public class JarReader {
 		String name = entry.getName();
 		long size = entry.getSize();
 		long compressedSize = entry.getCompressedSize();
-		System.out.println(name + "\t" + size + "\t" + compressedSize);
+		System.out.println(name + "\n" + size + "\n" + compressedSize);
 	}
 }

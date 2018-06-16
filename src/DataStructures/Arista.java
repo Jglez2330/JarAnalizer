@@ -1,4 +1,4 @@
-package com.tec.grafos;
+package DataStructures;
 
 public class Arista {
 	
