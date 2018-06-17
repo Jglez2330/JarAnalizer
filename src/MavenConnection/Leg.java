@@ -28,9 +28,12 @@ public class Leg {
             Elements linksOnPage = htmlDocument.select("a[href]");
             System.out.println("Found (" + linksOnPage.size() + ") links");
             for(Element link : linksOnPage){
-            	System.out.println(link);
-            	System.out.println();
-                this.links.add(link.absUrl("href"));
+            	
+            	if(ignoreOthers(link.absUrl("href"))) {
+            		System.out.println(link.absUrl("href"));
+            		System.out.println();
+            		this.links.add(link.absUrl("href"));
+            	}
             }
         }
         catch(IOException ioe)
@@ -48,5 +51,15 @@ public class Leg {
 	
 	public List<String> getLinks(){
 	  return this.links;
+	}
+	
+	private boolean ignoreOthers(String url) {
+		if(url.startsWith("https://mvnrepository.com/artifact/")) {
+			return true;
+		}else {
+			return false;
+		}
+			
+		
 	}
 }
