@@ -12,7 +12,6 @@ public class JarExtractFile {
 	static List<String> list = new ArrayList<String>();
 	//Opens a jar file and gets all dependencies inside
 	public static void getJars(JarFile jar) throws Exception {
-		jar = new JarFile("Cualquier jar con dependencias");
 		Enumeration entries = jar.entries();
 		while(entries.hasMoreElements()) {
 			JarEntry jarentry = (JarEntry)entries.nextElement();
@@ -25,7 +24,6 @@ public class JarExtractFile {
 	}
 	//Opens a jar file and gets all classes inside
 	public static void getClasses(JarFile jar) throws Exception {
-		jar = new JarFile("Cualquier jar con clases");
 		Enumeration entries = jar.entries();
 		while(entries.hasMoreElements()) {
 			JarEntry jarentry = (JarEntry)entries.nextElement();
@@ -35,5 +33,10 @@ public class JarExtractFile {
 		}
 		System.out.println(list.toString());
 		jar.close();
+	}
+	//Main class
+	public static void main(String args[]) throws Exception {
+		jar = new JarFile("C:\\Users\\Daniel\\eclipse\\jackson-core-2.9.5.jar");
+		getClasses(jar);
 	}
 }
