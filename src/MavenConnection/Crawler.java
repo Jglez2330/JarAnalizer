@@ -21,7 +21,7 @@ public class Crawler {
         return nextUrl;
     }
     
-    public void search(String url, String searchWord) throws IOException{
+    public String search(String url, String searchWord) throws IOException{
         
     	while(this.pagesVisited.size() < MAX_PAGES_TO_SEARCH){
             String currentUrl;
@@ -38,17 +38,12 @@ public class Crawler {
             boolean success = leg.searchForWord(searchWord);
             if(success){
                 System.out.println(String.format("**Success** Word %s found at %s", searchWord, currentUrl));
-        		String version = currentUrl.substring(currentUrl.lastIndexOf('/')+1);
-        		currentUrl = currentUrl.substring(35,currentUrl.lastIndexOf('/'));
-        		currentUrl = currentUrl.replace('.', '/');
-        		String name = currentUrl.substring(currentUrl.lastIndexOf('/')+1);
-        		String downloadUrl = "http://central.maven.org/maven2/" + currentUrl + "/" + version + "/" + name + "-" + version + ".jar";
-                Downloader.downloadFile(downloadUrl, "DownloadedJars");
-                break;
+                return currentUrl;
             }
             this.pagesToVisit.addAll(leg.getLinks());
         }
         System.out.println(String.format("**Done** Visited %s web page(s)", this.pagesVisited.size()));
+        return "";
     }
     
 }
