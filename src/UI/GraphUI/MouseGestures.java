@@ -1,8 +1,12 @@
 package UI.GraphUI;
 
+import DataStructures.GrafoD;
+import UI.UIManager;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+
+import java.io.IOException;
 
 public class MouseGestures {
 
@@ -20,6 +24,7 @@ public class MouseGestures {
         node.setOnMousePressed(onMousePressedEventHandler);
         node.setOnMouseDragged(onMouseDraggedEventHandler);
         node.setOnMouseReleased(onMouseReleasedEventHandler);
+        //node.setOnMouseClicked(onMouseClickedEventHandler);
 
 
     }
@@ -35,6 +40,24 @@ public class MouseGestures {
 
             dragContext.x = node.getBoundsInParent().getMinX() * scale - event.getScreenX();
             dragContext.y = node.getBoundsInParent().getMinY()  * scale - event.getScreenY();
+
+        }
+    };
+    EventHandler<MouseEvent> onMouseClickedEventHandler = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+
+            Node node = (Node) event.getSource();
+
+            System.out.println(node.getId());
+            GrafoD grafoD = new GrafoD();
+            try {
+                UIManager.getUIManager().showGrafo(grafoD);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }
     };

@@ -1,4 +1,4 @@
-package Jar;
+package JarManage;
 
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;

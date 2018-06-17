@@ -1,5 +1,13 @@
 package DataStructures;
-
+/**
+ * Esta clase posee a las aristas del grafo
+ * las cuales tienen un nodo de inicio
+ * y van dirigidas a un nodo de llegada
+ * con su propios peso
+ * 
+ * @author Bradly Valverde Fernandez
+ *
+ */
 public class Arista {
 	
 	private int peso;
@@ -7,7 +15,12 @@ public class Arista {
 	private Nodo NFinal;
 	
 	
-	
+	/**
+	 * Constructor
+	 * @param peso. Peso de la arista
+	 * @param nInicio. Nodo en el que inicia la arista
+	 * @param nFinal. Nodo al que va la arista
+	 */
 	public Arista(int peso, Nodo nInicio, Nodo nFinal) {
 		
 		this.peso = peso;
@@ -15,6 +28,10 @@ public class Arista {
 		NFinal = nFinal;
 		
 	}
+	
+	/**
+	 * Getter y Setter
+	 */
 	
 	public int getPeso() {
 		return peso;

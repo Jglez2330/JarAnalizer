@@ -38,13 +38,22 @@ public class UIManager {
 
     }
 
-    public UIManager() throws IOException {
+    private UIManager() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("sample.fxml"));
         this.primaryStage = new Stage();
         this.primaryStage.setTitle("Hello World");
         this.primaryStage.setScene(new Scene(root, 600, 400));
         this.primaryStage.show();
+    }
+    public UIManager(boolean innerMenu) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("sample1.fxml"));
+        this.primaryStage = new Stage();
+        this.primaryStage.setTitle("Hello World");
+        this.primaryStage.setScene(new Scene(root, 600, 400));
+        this.primaryStage.show();
+
     }
 
     public Stage getPrimaryStage() {
@@ -72,6 +81,7 @@ public class UIManager {
 
 
     }
+    //Agrega los elemntos del Grafo de Bradly al grafo de la interfaz
     private void addGraphComponents() {
 
         Model model = graph.getModel();
@@ -80,10 +90,12 @@ public class UIManager {
 
         GrafoD grafoD = JarReader.getGrafoD();
 
+        //Agrega los nodos
         for (int i  =0 ; i < grafoD.getNodos().size(); i++){
             Nodo nodo = grafoD.getNodos().get(i);
             model.addCell(nodo.getNombre(),CellType.RECTANGLE);
         }
+        //Agrega las aristas
         for (int i = 0; i < grafoD.getAristas().size(); i++){
             Arista arista = grafoD.getAristas().get(i);
             System.out.println(arista.getNInicio().getNombre());

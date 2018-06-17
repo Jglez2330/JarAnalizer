@@ -9,6 +9,7 @@ import java.net.URL;
 
 public class Downloader {
 	private static final int BUFFER_SIZE = 4096;
+	public static int progress = 0;
 
 	/**
 	 * Downloads a file from a URL
@@ -48,7 +49,7 @@ public class Downloader {
 
 			int bytesRead = -1;
 			int totalRead = 0;
-			int progress = 0;
+			progress = 0;
 			byte[] buffer = new byte[BUFFER_SIZE];
 			
 			while ((bytesRead = inputStream.read(buffer)) != -1) {

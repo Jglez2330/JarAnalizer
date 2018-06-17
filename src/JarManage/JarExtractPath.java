@@ -1,4 +1,4 @@
-package Jar;
+package JarManage;
 
 import java.util.ArrayList;
 import java.util.List;

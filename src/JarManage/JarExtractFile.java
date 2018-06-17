@@ -1,4 +1,4 @@
-package Jar;
+package JarManage;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -9,7 +9,7 @@ import java.util.jar.JarFile;
 public class JarExtractFile {
 	//Variables needed for code
 	static JarFile jar;
-	static List<String> list = new ArrayList<String>();
+	public static List<String> list = new ArrayList<String>();
 	//Opens a jar file and gets all dependencies inside
 	public static void getJars(JarFile jar) throws Exception {
 		Enumeration entries = jar.entries();
@@ -21,7 +21,7 @@ public class JarExtractFile {
 		}
 		System.out.println(list.toString());
 		jar.close();
-	}
+    }
 	//Opens a jar file and gets all classes inside
 	public static void getClasses(JarFile jar) throws Exception {
 		Enumeration entries = jar.entries();
@@ -35,8 +35,8 @@ public class JarExtractFile {
 		jar.close();
 	}
 	//Main class
-	public static void main(String args[]) throws Exception {
-		jar = new JarFile("C:\\Users\\Daniel\\eclipse\\jackson-core-2.9.5.jar");
-		getClasses(jar);
+	public static void main(String arg) throws Exception {
+		jar = new JarFile(arg);
+		//getClasses(jar);
 	}
 }
