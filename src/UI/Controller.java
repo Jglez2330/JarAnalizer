@@ -16,9 +16,16 @@ public class Controller {
         File jar = fileChooser.showOpenDialog(UIManager.getUIManager().getPrimaryStage());
         System.out.println(jar.getName());
 
+        //UIManager.getUIManager().getPrimaryStage().close();
+
         System.out.println(jar.getAbsolutePath());
 
         JarReader.main(jar.getAbsolutePath());
+
+        UIManager.getUIManager().showGrafo(JarReader.getGrafoD());
+
+
+
 
         return;
     }

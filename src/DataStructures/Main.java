@@ -12,7 +12,7 @@ public class Main {
 		
 		g1.addArista("Guanacaste", "San Carlos", 1);
 		
-		g1.deleteNodo("San Jose");
+		//g1.deleteNodo("San Jose");
 		
 		for(Nodo n : g1.getNodos()) {
 			
