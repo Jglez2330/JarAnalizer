@@ -33,8 +33,7 @@ public class Downloader {
 					fileName = disposition.substring(index + 10, disposition.length() - 1);
 				}
 			} else {
-				fileName = fileURL.substring(fileURL.lastIndexOf("/") + 1,
-						fileURL.length());
+				fileName = fileURL.substring(fileURL.lastIndexOf("/") + 1, fileURL.length());
 			}
 
 			System.out.println("Content-Type = " + contentType);
@@ -48,9 +47,15 @@ public class Downloader {
 			FileOutputStream outputStream = new FileOutputStream(saveFilePath);
 
 			int bytesRead = -1;
+			int totalRead = 0;
+			int progress = 0;
 			byte[] buffer = new byte[BUFFER_SIZE];
+			
 			while ((bytesRead = inputStream.read(buffer)) != -1) {
 				outputStream.write(buffer, 0, bytesRead);
+				totalRead += bytesRead;
+				progress = totalRead*100/contentLength;
+				System.out.println("Progress: " + progress + "%");
 			}
 
 			outputStream.close();
