@@ -10,6 +10,7 @@ public class ConnectionManager {
 	
 	public void search(String name) throws IOException {
 		name = name.replace(' ', '+');
+
 		currentUrl = crawler.search("https://mvnrepository.com/search?q="+ name, "jar ("); // Es "" si no encuentra el jar
 	}
 

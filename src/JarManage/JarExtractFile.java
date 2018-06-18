@@ -11,8 +11,9 @@ public class JarExtractFile {
 	static JarFile jar;
 	public static List<String> list = new ArrayList<String>();
 	//Opens a jar file and gets all dependencies inside
-	public static void getJars(JarFile jar) throws Exception {
+	public static void getJars(String jars) throws Exception {
 		Enumeration entries = jar.entries();
+
 		while(entries.hasMoreElements()) {
 			JarEntry jarentry = (JarEntry)entries.nextElement();
 			if(jarentry.getName().endsWith(".jar")) {
@@ -20,7 +21,7 @@ public class JarExtractFile {
 			}
 		}
 		System.out.println(list.toString());
-		jar.close();
+		//jar.close();
     }
 	//Opens a jar file and gets all classes inside
 	public static void getClasses(JarFile jar) throws Exception {
@@ -39,4 +40,5 @@ public class JarExtractFile {
 		jar = new JarFile(arg);
 		//getClasses(jar);
 	}
+
 }

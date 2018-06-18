@@ -19,7 +19,7 @@ public class JarReader {
 			process(e.nextElement());
 		}
 
-		jarFile.close();
+		//jarFile.close();
 	}
 	//Opens a jar file and gets an element's information
 	private static void process(Object obj) {

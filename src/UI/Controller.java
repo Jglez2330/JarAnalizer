@@ -9,11 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarFile;
 
@@ -48,46 +51,88 @@ public class Controller {
     }
 
     //Mustra el grafo
-    public void showGraph(ActionEvent actionEvent) {
+    public void showGraph(ActionEvent actionEvent) throws IOException {
+
+        UIManager.getUIManager().showGrafo(JarReader.getGrafoD());
 
     }
 
     //Funcion para descargar Jars y mostrar el progreso en la interfaz
     public void downloadJars(ActionEvent actionEvent) throws Exception {
-        /*Stage stage  = new Stage();
+        Stage stage  = new Stage();
         Group root = new Group();
-        JarExtractFile.getJars(new JarFile(new File(jarPath)));
+        JarExtractFile.getJars("");
         List<String> jars = JarExtractFile.list;
-        ProgressBar[] progressBars = new ProgressBar[jars.size()];
+       /* jars.add("jsr305-3.0.2.jar");
+        jars.add("jsr305-3.0.2.jar");
+        jars.add("jsr305-3.0.2.jar");
+        jars.add("jsr305-3.0.2.jar");
+        jars.add("jsr305-3.0.2.jar");*/
+        for (int i = 0; i < jars.size(); i++){
+            jars.set(i,jars.get(i).replaceAll(".jar",""));
+            if (jars.get(i).contains("lib")){
+                jars.remove(i);
+            }
+            jars.set(i,jars.get(i).replaceAll(".jar",""));
+
+        }
+
+        /*jars.add("jsr305-3.0.2");
+        jars.add("jsr305-3.0.2");
+        jars.add("jsr305-3.0.2");
+        jars.add("jsr305-3.0.2");*/
+        List<ProgressBar> progressBarList = new ArrayList<ProgressBar>();
         for (int i = 0; i < jars.size(); i++){
             ProgressBar progressBar = new ProgressBar();
             progressBar.setProgress(0);
+            Text text = new Text();
+            text.setFill(Color.BLACK);
+            text.setText(jars.get(i));
+            text.setX(135);
+            text.setY(i*25 + 15);
+            root.getChildren().add(text);
             root.getChildren().add(progressBar);
-            progressBar.relocate(10,i*100);
-            progressBars[i] = progressBar;
+            progressBar.relocate(10,i*25);
+            progressBarList.add(progressBar);
+
         }
         Scene scene = new Scene(root,200,200);
         stage.setScene(scene);
         stage.show();
-        while (progressBars.length > 0){
-        while (progressBars[0].getProgress() <= 1){
-            if (progressBars[0].getProgress() == 1){
-                ProgressBar[] progressBars1 = new ProgressBar[progressBars.length -1];
-                for (int i = 1; i < progressBars.length; i++){
-                    progressBars1[i-1] = progressBars[i];
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                while (jars.size() > 0)
+
+                {
+                    System.out.println(jars.get(0));
+                    ConnectionManager connectionManager = new ConnectionManager();
+
+                    try {
+                        connectionManager.search(jars.get(0));
+                        connectionManager.download();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    jars.remove(0);
+                    if (progressBarList.size() > 0) {
+                        while (progressBarList.get(0).getProgress() <= 1) {
+                            if (progressBarList.get(0).getProgress() == 1) {
+                                progressBarList.remove(0);
+                                break;
+                            } else {
+                                progressBarList.get(0).setProgress(Downloader.progress / 100);
+                            }
+
+
+                        }
+
+                    }
                 }
-                progressBars = progressBars1;
-            }else {
-                progressBars[0].setProgress(Downloader.progress);
             }
-
-
-
-        }
-        new ConnectionManager().search(jars.get(0));
-        jars.remove(0);
-        }*/
-
+        }).start();
 
 
     }
