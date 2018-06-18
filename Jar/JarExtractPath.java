@@ -4,16 +4,18 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.util.List;
+import org.apache.commons.collections4.CollectionUtils;
 
 public class JarExtractPath {
 	//Variables
 	static List<String> listC;
 	static List<String> listD;
 	static List<String> listJ;
+	static List<String> listF;
 	static File jar;
 	//Opens the classpath and obtains a list of all jars
 	public static void main (String args[]) throws Exception {
-		jar = new File("Aquí va el jar");
+		jar = new File("Aquí va el Jar");
 	}
 	public static List<String> getClassPath() throws Exception {
 		String s = System.getProperty("java.class.path");
@@ -49,5 +51,13 @@ public class JarExtractPath {
 			}
 		}
 		return listJ;
+	}
+	public static List<String> compareLists (List<String> list1, List<String> list2){
+		listF = (List<String>) CollectionUtils.retainAll(list1, list2);
+		if(listF == null) {
+			//Descargas de Maven van aquí, mientras tanto
+			return null;
+		}
+		return listF;
 	}
 }
