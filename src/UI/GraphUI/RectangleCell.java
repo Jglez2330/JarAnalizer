@@ -27,7 +27,7 @@ public class RectangleCell extends Cell {
             public void handle(ActionEvent event) {
                 GrafoD grafoD = new GrafoD();
                 try {
-                    UIManager.getUIManager().showGrafo(grafoD);
+                    UIManager.getUIManager().showGrafoClass(id);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

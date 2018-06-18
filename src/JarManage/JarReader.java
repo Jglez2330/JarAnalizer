@@ -24,6 +24,7 @@ public class JarReader {
 			process(e.nextElement());
 		}
 
+		System.out.println(dependencies.size());
 
 		//getDependencies(jarFile);
 		//jarFile.close();
@@ -35,7 +36,7 @@ public class JarReader {
 		long size = entry.getSize();
 		long compressedSize = entry.getCompressedSize();
 		System.out.println(name + "\n" + size + "\n" + compressedSize);
-		if ( !name.contains("$") && name.endsWith(".class")) {
+		if ( name.contains("$") || !name.contains("/")) {
             dependencies.add(name);
         }
 

@@ -106,4 +106,8 @@ public class UIManager {
         graph.endUpdate();
 
     }
+
+    public void showGrafoClass(String id) {
+
+    }
 }
