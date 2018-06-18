@@ -1,11 +1,14 @@
 package MavenConnection;
 
+import javafx.scene.control.ProgressBar;
+
 import java.io.IOException;
 
 public class ConnectionManager {
 	
 	private Crawler crawler = new Crawler();
 	private String currentUrl = ""; //Es el mejor resultado encontrado
+
 
 	
 	public void search(String name) throws IOException {
@@ -23,7 +26,7 @@ public class ConnectionManager {
 			String downloadUrl = "http://central.maven.org/maven2/" + currentUrl + "/" + version + "/" + name + "-" + version + ".jar";
 			Downloader.downloadFile(downloadUrl, "DownloadedJars");
 		}else {
-			System.out.println("No file to download from current Url");
+		    throw new IOException("Failed");
 		}
 	}
 	public String getCurrentUrl() {

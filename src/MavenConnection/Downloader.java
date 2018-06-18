@@ -1,15 +1,19 @@
 package MavenConnection;
 
+import javafx.scene.control.ProgressBar;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class Downloader {
 	private static final int BUFFER_SIZE = 4096;
-	public static int progress = 0;
+	public static double progress = 0;
+
 
 	/**
 	 * Downloads a file from a URL
@@ -56,7 +60,9 @@ public class Downloader {
 				outputStream.write(buffer, 0, bytesRead);
 				totalRead += bytesRead;
 				progress = totalRead*100/contentLength;
-				System.out.println("Progress: " + progress + "%");
+
+				System.out.println("Progress: " + progress  + "%");
+
 			}
 
 			outputStream.close();

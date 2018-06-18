@@ -2,6 +2,7 @@ package UI;
 
 import DataStructures.GrafoD;
 import JarManage.JarExtractFile;
+import JarManage.JarExtractPath;
 import JarManage.JarReader;
 import MavenConnection.ConnectionManager;
 import MavenConnection.Downloader;
@@ -24,7 +25,7 @@ import java.util.jar.JarFile;
 public class Controller {
     public String jarPath;
     //Obtiene el Path del jar
-    public void getJarPath() throws IOException {
+    public void getJarPath() throws Exception {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("jar","*.jar");
         fileChooser.setSelectedExtensionFilter(filter);
@@ -40,6 +41,7 @@ public class Controller {
         System.out.println(jar.getAbsolutePath());
 
         JarReader.main(jar.getAbsolutePath());
+        JarExtractPath.getDependencies(jar);
 
         //UIManager.getUIManager().showGrafo(JarReader.getGrafoD());
         UIManager uiManager = new UIManager(true);
@@ -96,6 +98,7 @@ public class Controller {
         jars.add("jsr305-3.0.2");
         jars.add("jsr305-3.0.2");*/
         List<ProgressBar> progressBarList = new ArrayList<ProgressBar>();
+        List<Text> texts = new ArrayList<Text>();
         for (int i = 0; i < jars.size(); i++){
             ProgressBar progressBar = new ProgressBar();
             progressBar.setProgress(0);
@@ -108,9 +111,10 @@ public class Controller {
             root.getChildren().add(progressBar);
             progressBar.relocate(10,i*25);
             progressBarList.add(progressBar);
+            texts.add(text);
 
         }
-        Scene scene = new Scene(root,200,200);
+        Scene scene = new Scene(root,400,400);
         stage.setScene(scene);
         stage.show();
         new Thread(new Runnable() {
@@ -122,6 +126,7 @@ public class Controller {
 
                 {
                     System.out.println(jars.get(0));
+
                     ConnectionManager connectionManager = new ConnectionManager();
 
                     try {
@@ -131,23 +136,36 @@ public class Controller {
                             public void run() {
                                 try {
                                     connectionManager.download();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                } catch (Exception e) {
+
+                                    progressBarList.get(0).setStyle("-fx-progress-color: red");
+                                    progressBarList.get(0).setProgress(1);
+                                    progressBarList.remove(0);
+                                    texts.get(0).setText("Failed");
+                                    texts.remove(0);
+
                                 }
 
                             }
                         }).start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
+                        progressBarList.get(0).setStyle("fx-progress-color: yellow;");
+                        progressBarList.get(0).setProgress(1);
+                        progressBarList.remove(0);
+                        texts.get(0).setText("Failed");
+                        texts.remove(0);
+
                     }
                     jars.remove(0);
                     if (progressBarList.size() > 0) {
                         while (progressBarList.get(0).getProgress() <= 1) {
                             if (progressBarList.get(0).getProgress() == 1) {
                                 progressBarList.remove(0);
+                                texts.get(0).setText("Failed");
+                                texts.remove(0);
                                 break;
                             } else {
-                                progressBarList.get(0).setProgress(Downloader.progress / 100);
+                                progressBarList.get(0).setProgress(Downloader.progress/100);
                             }
 
 
