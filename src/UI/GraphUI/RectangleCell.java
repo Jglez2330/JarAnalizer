@@ -35,12 +35,8 @@ public class RectangleCell extends Cell {
         });
 
 
-        Rectangle view2 = new Rectangle( view.getWidth()+100,view.getHeight()+100);
 
-        view2.setStroke(Color.DODGERBLUE);
-        view2.setFill(Color.DODGERBLUE);
 
-        setView( view2);
 
 
         setView(view);

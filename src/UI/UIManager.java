@@ -70,7 +70,7 @@ public class UIManager {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        addGraphComponents();
+        addGraphComponents(grafoD);
 
         Layout layout = new RandomLayout(graph);
         layout.execute();
@@ -82,13 +82,13 @@ public class UIManager {
 
     }
     //Agrega los elemntos del Grafo de Bradly al grafo de la interfaz
-    private void addGraphComponents() {
+    private void addGraphComponents(GrafoD grafoD) {
 
         Model model = graph.getModel();
 
         graph.beginUpdate();
 
-        GrafoD grafoD = JarReader.getGrafoD();
+
 
         //Agrega los nodos
         for (int i  =0 ; i < grafoD.getNodos().size(); i++){
@@ -102,21 +102,6 @@ public class UIManager {
             System.out.println(arista.getNFinal().getNombre());
             model.addEdge(arista.getNInicio().getNombre(),arista.getNFinal().getNombre());
         }
-        /*model.addCell("Cell A", CellType.RECTANGLE);
-        model.addCell("Cell B", CellType.RECTANGLE);
-        model.addCell("Cell C", CellType.RECTANGLE);
-        model.addCell("Cell D", CellType.RECTANGLE);
-        model.addCell("Cell E", CellType.RECTANGLE);
-        model.addCell("Cell F", CellType.RECTANGLE);
-        model.addCell("Cell G", CellType.RECTANGLE);
-
-        model.addEdge("Cell A", "Cell G");
-        model.addEdge("Cell A", "Cell C");
-        model.addEdge("Cell B", "Cell C");
-        model.addEdge("Cell C", "Cell D");
-        model.addEdge("Cell B", "Cell E");
-        model.addEdge("Cell D", "Cell F");
-        model.addEdge("Cell D", "Cell G");*/
 
         graph.endUpdate();
 

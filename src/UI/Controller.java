@@ -1,5 +1,6 @@
 package UI;
 
+import DataStructures.GrafoD;
 import JarManage.JarExtractFile;
 import JarManage.JarReader;
 import MavenConnection.ConnectionManager;
@@ -53,7 +54,20 @@ public class Controller {
     //Mustra el grafo
     public void showGraph(ActionEvent actionEvent) throws IOException {
 
-        UIManager.getUIManager().showGrafo(JarReader.getGrafoD());
+        GrafoD grafoD = new GrafoD();
+        int i = 0;
+        int j = 1;
+        while (j < JarReader.dependencies.size()){
+            if (j == JarReader.dependencies.size()-1){
+                grafoD.addArista(JarReader.dependencies.get(0),JarReader.dependencies.get(j),1);
+            }else {
+                grafoD.addArista(JarReader.dependencies.get(i),JarReader.dependencies.get(j),1);
+
+            }
+            i++;
+            j++;
+        }
+        UIManager.getUIManager().showGrafo(grafoD);
 
     }
 
@@ -112,7 +126,17 @@ public class Controller {
 
                     try {
                         connectionManager.search(jars.get(0));
-                        connectionManager.download();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    connectionManager.download();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }).start();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
